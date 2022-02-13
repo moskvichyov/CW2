@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, json
-from func import get_tags, read_post_json
+from func import *
 
 app = Flask(__name__)
 
@@ -8,16 +8,15 @@ POST_COMMENTS = "data/comments.json"
 
 @app.route('/')
 def page_index():
-    # posts = read_post_json(POST_PATH)
-    # comments = read_post_json(POST_COMMENTS)
-    #
-    # comments_count=[]
-    # for post in posts:
-    #     for comment in comments:
-    #         if comment.get('post_id') == post.get('pk'):
-    #             comments_count.append(comment)
+    return render_template('index.html', posts=get_posts())
 
-    return render_template('index.html', posts=read_post_json(POST_PATH), comments=read_post_json(POST_COMMENTS))
+
+@app.route('/post/<post_id>')
+def page_post(post_id):
+    return render_template('post.html', post=get_post_by_post_id(post_id), comments=get_comments_by_post_id(post_id))
+
+
+
 
 
 if __name__ == "__main__":
