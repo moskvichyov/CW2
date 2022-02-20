@@ -33,5 +33,7 @@ def get_post_by_post_id(post_id):
     for post in read_json(POST_PATH):
         if post['pk'] == post_id:
             one_post.append(post)
-        return one_post
+    return one_post
+
+print(get_post_by_post_id(1))
 

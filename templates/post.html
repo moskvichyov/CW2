@@ -27,8 +27,8 @@
 
   <main class="container">
     <section class="items">
-      {% for post in posts%}
-      <div class="items__item item item--post">
+<!--     {% if post in posts %}-->
+     <div class="items__item item item--post">
         <div class="item__top">
           <a href="/user-feed.html" class="item__head">
             <div class="item__ava-wrap">
@@ -54,17 +54,13 @@
               <span class="item__counter-text">1023</span>
             </div>
           </div>
+          <% for comment in comments%>
           <div class="item__comments">
             <p class="item__comment">
-              <b>{{post.commenter_name}}</b> {{post.comment}}
+              <b>{{comments.commenter_name}}</b> {{comments.comment}}
             </p>
-<!--            <p class="item__comment">-->
-<!--              <b>user 2:</b> еще один комментарий-->
-<!--            </p>-->
-<!--            <p class="item__comment">-->
-<!--              <b>user 3:</b> и&nbsp;какой-то коммент еще-->
-<!--            </p>-->
           </div>
+          <% endfor %>
           <form action="/" class="item__comment-form comment-form">
             <div class="comment-form__input-wrap">
               <input type="search" class="comment-form__input" placeholder="Ваше имя">
@@ -76,8 +72,8 @@
           </form>
         </div>
       </div>
-      {% endfor %}
-    </section>
+<!--      {% endif %}-->
+   </section>
   </main>
 
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
