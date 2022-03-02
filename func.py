@@ -3,7 +3,7 @@ import pprint
 
 
 POST_PATH = "data/data.json"
-COMMENTS_PATH = "data/comments.json"
+POST_COMMENTS = "data/comments.json"
 
 
 def read_json(filename):
@@ -13,7 +13,7 @@ def read_json(filename):
 
 def get_comments_by_post_id(post_id):
     all_comments = []
-    for comment in read_json(COMMENTS_PATH):
+    for comment in read_json(POST_COMMENTS):
         if comment["post_id"] == post_id:
             all_comments.append(comment)
     return all_comments
@@ -29,9 +29,17 @@ def get_posts():
 
 
 def get_post_by_post_id(post_id):
-    one_post = []
     for post in read_json(POST_PATH):
         if post['pk'] == post_id:
-            one_post.append(post)
-        return one_post
+            one_post = post
+    return one_post
 
+
+def search_posts(s):
+    results = []
+    for post in read_json(POST_PATH):
+        if s in post['content']:
+            comments = get_comments_by_post_id(post["pk"])
+            post["comments_count"] = len(comments)
+            results.append(post)
+    return results
