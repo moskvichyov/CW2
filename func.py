@@ -31,6 +31,8 @@ def get_posts():
 def get_post_by_post_id(post_id):
     for post in read_json(POST_PATH):
         if post['pk'] == post_id:
+            comments = get_comments_by_post_id(post["pk"])
+            post["comments_count"] = len(comments)
             one_post = post
     return one_post
 
@@ -40,6 +42,17 @@ def search_posts(s):
     for post in read_json(POST_PATH):
         if s in post['content']:
             comments = get_comments_by_post_id(post["pk"])
+            posts = get_post_by_post_id(post["pk"])
             post["comments_count"] = len(comments)
+            post["posts_count"] = len(posts)
             results.append(post)
     return results
+
+def get_user_posts(username):
+    user_posts = []
+    for post in read_json(POST_PATH):
+        if post['poster_name'] == username:
+            comments = get_comments_by_post_id(post["pk"])
+            post["comments_count"] = len(comments)
+            user_posts.append(post)
+    return user_posts
